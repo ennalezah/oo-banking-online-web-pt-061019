@@ -6,6 +6,7 @@ class Transfer
     @receiver = receiver 
     @amount = amount
     @status = "pending"
+<<<<<<< HEAD
   end 
   
   def valid?
@@ -29,6 +30,28 @@ class Transfer
       receiver.balance -= amount
       self.status = "reversed"
     end
+=======
+  end
+  
+  def valid?
+    @sender.valid? == true && @receiver.valid? == true ? true : false
+  end
+  
+  def execute_transaction
+    count = 0
+    
+    until self.status != "pending" do
+      if self.valid?
+        self.sender.balance -= self.amount
+        self.receiver.deposit(self.amount)
+        self.status = "complete"
+      else
+        "Denied"
+      end
+    end
+    
+    
+>>>>>>> 03342bed6068eb9e9af3231a1145659015615afe
   end
   
 end
